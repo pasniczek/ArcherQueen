@@ -22,7 +22,7 @@ public class CreateAndLoadScene : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel("Game");
+        PhotonNetwork.LoadLevel("SampleScene");
     }
 
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerMovementImproved : MonoBehaviour
 {
@@ -74,6 +75,12 @@ public class PlayerMovementImproved : MonoBehaviour
     public Vector2 fallVerticlyOffset = new Vector2(-0.01f, 0.1f);
     public Vector2 fallOffset = new Vector2(-0.01f, 0.1f);
 
+	[Header("Animations")]	
+	const string Player_run = "RunBlanket";
+	const string Player_jump = "jumpBlanket";
+	const string Player_idle = "IdleBlanket";
+
+	private PhotonView view;
 
 	private void Start()
 	{
@@ -90,117 +97,132 @@ public class PlayerMovementImproved : MonoBehaviour
 
 	}
 
+	void Awake()
+	{
+		if(view.IsMine)
+		{
+			jumpInputReleased = true;
+			lastJumpTime = 0;
+		}
+		view = GetComponent<PhotonView>();
+	}
+
 	private void Update()
 	{
-
-		Animations();
-
-		UpdateHairOffset();
-
-		#region Inputs
-		moveInput.x = Input.GetAxisRaw("Horizontal");
-		moveInput.y = Input.GetAxisRaw("Vertical");
-
-		if (Input.GetKey(KeyCode.Space))
+		
+		if(view.IsMine)
 		{
-			lastJumpTime = jumpBufferTime;
-		}
+			Animations();
 
-		if(Input.GetKeyUp(KeyCode.Space))
-		{
-			OnJumpUp();
-		}
-		#endregion
+			UpdateHairOffset();
 
-		#region Run
-		if (moveInput.x != 0)
-			lastMoveInput.x = moveInput.x;
-		if (moveInput.y != 0)
-			lastMoveInput.y = moveInput.y;
+			#region Inputs
+			moveInput.x = Input.GetAxisRaw("Horizontal");
+			moveInput.y = Input.GetAxisRaw("Vertical");
 
-		if ((lastMoveInput.x > 0 && !isFacingRight) || (lastMoveInput.x < 0 && isFacingRight))
-		{
-			Turn();
-			isFacingRight = !isFacingRight;
-		}
-		#endregion
+			if (Input.GetButton("Jump"))
+			{
+				lastJumpTime = jumpBufferTime;
+			}
 
-		#region Ground
-		//checks if set box overlaps with ground
-		if (Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer) && !isJumping) 
-		{
-			//resets countdown timer
-			lastGroundedTime = jumpCoyoteTime; 
-		}
-		#endregion
+			if(Input.GetButtonUp("Jump"))
+			{
+				OnJumpUp();
+			}
+			#endregion
 
-		#region Wall
-		//checks if set box overlaps with wall in front of player
-		if (lastGroundedTime <= 0)
-		{
-			if (Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, groundLayer))
+			#region Run
+			if (moveInput.x != 0)
+				lastMoveInput.x = moveInput.x;
+			if (moveInput.y != 0)
+				lastMoveInput.y = moveInput.y;
+
+			if ((lastMoveInput.x > 0 && !isFacingRight) || (lastMoveInput.x < 0 && isFacingRight))
+			{
+				Turn();
+				isFacingRight = !isFacingRight;
+			}
+			#endregion
+
+			#region Ground
+			//checks if set box overlaps with ground
+			if (Physics2D.OverlapBox(groundCheckPoint.position, groundCheckSize, 0, groundLayer) && !isJumping) 
 			{
 				//resets countdown timer
-				lastOnFrontWallTime = wallJumpCoyoteTime;
-				lastOnBackWallTime = 0;
+				lastGroundedTime = jumpCoyoteTime; 
 			}
-			else if (Physics2D.OverlapBox(backWallCheckPoint.position, wallCheckSize, 0, groundLayer))
+			#endregion
+
+			#region Wall
+			//checks if set box overlaps with wall in front of player
+			if (lastGroundedTime <= 0)
 			{
-				//resets countdown timer
-				lastOnBackWallTime = wallJumpCoyoteTime;
-				lastOnFrontWallTime = 0;
+				if (Physics2D.OverlapBox(frontWallCheckPoint.position, wallCheckSize, 0, groundLayer))
+				{
+					//resets countdown timer
+					lastOnFrontWallTime = wallJumpCoyoteTime;
+					lastOnBackWallTime = 0;
+				}
+				else if (Physics2D.OverlapBox(backWallCheckPoint.position, wallCheckSize, 0, groundLayer))
+				{
+					//resets countdown timer
+					lastOnBackWallTime = wallJumpCoyoteTime;
+					lastOnFrontWallTime = 0;
+				}
 			}
+
+			if (lastOnFrontWallTime > 0 || lastOnBackWallTime > 0)
+				isSliding = true;
+			else
+				isSliding = false;
+			#endregion
+
+			#region Jump
+			//checks if the player is grounded or falling and that they have released jump
+			if (rb.velocity.y <= 0)
+			{
+				//if so we are no longer jumping and could jump again
+				isJumping = false;
+			}
+
+			//checks if was last grounded within coyoteTime and that jump has been pressed within bufferTime
+			if (lastJumpTime > 0 && !isJumping && jumpInputReleased)
+			{
+				if (lastGroundedTime > 0)
+				{
+					lastGroundedTime = 0;
+					Jump(jumpForce);
+				}
+				else if (lastOnFrontWallTime > 0 && canWallJump)
+				{
+					lastOnFrontWallTime = 0;
+					WallJump(wallJumpForce.x, wallJumpForce.y);
+					StopMovement(wallJumpStopRunTime);
+				}
+				else if(lastOnBackWallTime > 0 && canWallJump)
+				{
+					lastOnBackWallTime = 0;
+					WallJump(-wallJumpForce.x, wallJumpForce.y);
+					StopMovement(wallJumpStopRunTime);
+				}
+			}
+
+			#endregion
+
+			#region Timer
+			lastGroundedTime -= Time.deltaTime;
+			lastOnFrontWallTime -= Time.deltaTime;
+			lastOnBackWallTime -= Time.deltaTime;
+			lastJumpTime -= Time.deltaTime;
+			#endregion
 		}
-
-		if (lastOnFrontWallTime > 0 || lastOnBackWallTime > 0)
-			isSliding = true;
-		else
-			isSliding = false;
-		#endregion
-
-		#region Jump
-		//checks if the player is grounded or falling and that they have released jump
-		if (rb.velocity.y <= 0)
-		{
-			//if so we are no longer jumping and could jump again
-			isJumping = false;
-		}
-
-		//checks if was last grounded within coyoteTime and that jump has been pressed within bufferTime
-		if (lastJumpTime > 0 && !isJumping && jumpInputReleased)
-		{
-			if (lastGroundedTime > 0)
-			{
-				lastGroundedTime = 0;
-				Jump(jumpForce);
-			}
-			else if (lastOnFrontWallTime > 0 && canWallJump)
-			{
-				lastOnFrontWallTime = 0;
-				WallJump(wallJumpForce.x, wallJumpForce.y);
-				StopMovement(wallJumpStopRunTime);
-			}
-			else if(lastOnBackWallTime > 0 && canWallJump)
-			{
-				lastOnBackWallTime = 0;
-				WallJump(-wallJumpForce.x, wallJumpForce.y);
-				StopMovement(wallJumpStopRunTime);
-			}
-		}
-
-		#endregion
-
-		#region Timer
-		lastGroundedTime -= Time.deltaTime;
-		lastOnFrontWallTime -= Time.deltaTime;
-		lastOnBackWallTime -= Time.deltaTime;
-		lastJumpTime -= Time.deltaTime;
-		#endregion
 	}
 
 	private void FixedUpdate()
 	{
 		#region Run
+		if(view.IsMine)
+		{
 		if (canMove)
 		{
 			//calculate the direction we want to move in and our desired velocity
@@ -267,6 +289,7 @@ public class PlayerMovementImproved : MonoBehaviour
 			rb.gravityScale = gravityScale;
 		}
 		#endregion
+		}
 	}
 
 	#region Jump
@@ -344,23 +367,18 @@ public class PlayerMovementImproved : MonoBehaviour
 
         if(isJumping)
 			{
-				anim.SetBool("jump", true);
-			}
-        else 
-			{
-				anim.SetBool("jump", false);
+				anim.Play(Player_jump);
 			}
 
         if (moveInput.x != 0 && !isJumping) 
 			{
-				anim.SetBool("peed", true);
+				anim.Play(Player_run);
 			}
-        else 
+		if(moveInput.x == 0 && !isJumping)
 			{
-				anim.SetBool("peed", false);
+				anim.Play(Player_idle);
 			}
-
-    	}
+    }
 
 	void UpdateHairOffset()
     {

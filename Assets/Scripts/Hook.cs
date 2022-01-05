@@ -24,6 +24,21 @@ public class Hook : MonoBehaviour
     private GameObject CurrentMaterial;
     private bool isShooting;
     public float shootingCooldown;
+    // [SerializeField] private int percision = 40;
+    float moveTime = 0f;
+
+    // [Header("Rope Animation Settings:")]
+    // public AnimationCurve ropeAnimationCurve;
+    // [Range(0.01f, 4)] [SerializeField] private float StartWaveSize = 2;
+    // float waveSize = 0;
+
+    // [Header("Rope Progression:")]
+    // public AnimationCurve ropeProgressionCurve;
+    // [SerializeField] [Range(1, 50)] private float ropeProgressionSpeed = 1;
+
+    
+
+
 
 
 
@@ -62,6 +77,7 @@ public class Hook : MonoBehaviour
                 }
             }
         }
+        moveTime += Time.deltaTime;
 
         if(Input.GetKeyUp(KeyCode.Mouse0))
         {
@@ -110,9 +126,9 @@ public class Hook : MonoBehaviour
         m_springJoint2D.enabled = true;
         grappleDistanceVector = grapplePoint - (Vector2)blanket.transform.position;
         Lr.enabled = true;
-        Lr.SetPosition(1, grapplePoint);
         grappleGround = true;
         grappleMaterial = false;
+        Lr.SetPosition(1, grapplePoint);
         yield return new WaitForSeconds(shootingCooldown);
         isShooting = false;
     }
