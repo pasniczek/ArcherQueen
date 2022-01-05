@@ -8,14 +8,14 @@ public class MenuManager : MonoBehaviour
     public static MenuManager Instance;
     [SerializeField]private Menu[] menus;
 
-    vois Awake()
+    void Awake()
     {
         Instance = this;
     }
 
     public void OpenMenu(string menuName)
     {
-        for(int i = 0; i < menus.Lenght, i++)
+        for(int i = 0; i < menus.Length; i++)
         {
             if(menus[i].menuName == menuName)
             {
@@ -30,7 +30,7 @@ public class MenuManager : MonoBehaviour
 
     public void OpenMenu(Menu menu)
     {
-        for(int i = 0; i < menus.Lenght, i++)
+        for(int i = 0; i < menus.Length; i++)
         {
             if(menus[i].open)
             {

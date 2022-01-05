@@ -99,19 +99,14 @@ public class PlayerMovementImproved : MonoBehaviour
 
 	void Awake()
 	{
-		if(view.IsMine)
-		{
-			jumpInputReleased = true;
-			lastJumpTime = 0;
-		}
+		jumpInputReleased = true;
+		lastJumpTime = 0;
 		view = GetComponent<PhotonView>();
 	}
 
 	private void Update()
 	{
-		
-		if(view.IsMine)
-		{
+
 			Animations();
 
 			UpdateHairOffset();
@@ -215,14 +210,13 @@ public class PlayerMovementImproved : MonoBehaviour
 			lastOnBackWallTime -= Time.deltaTime;
 			lastJumpTime -= Time.deltaTime;
 			#endregion
-		}
+		
 	}
 
 	private void FixedUpdate()
 	{
 		#region Run
-		if(view.IsMine)
-		{
+	
 		if (canMove)
 		{
 			//calculate the direction we want to move in and our desired velocity
@@ -289,7 +283,7 @@ public class PlayerMovementImproved : MonoBehaviour
 			rb.gravityScale = gravityScale;
 		}
 		#endregion
-		}
+		
 	}
 
 	#region Jump

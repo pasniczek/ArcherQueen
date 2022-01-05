@@ -8,7 +8,7 @@ using TMPro;
 public class Menu : MonoBehaviourPunCallbacks
 {
     public string menuName;
-    [HideInInspector] public bool open;
+    public bool open;
 
     public void Open()
     {
