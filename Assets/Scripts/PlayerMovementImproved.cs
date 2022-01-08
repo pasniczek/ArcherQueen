@@ -87,7 +87,6 @@ public class PlayerMovementImproved : MonoBehaviour
 		if(!view.IsMine)
 		{
 			Destroy(rb);
-			Destroy(anim);
 			return;
 		}
 		jumpInputReleased = true; 
@@ -220,7 +219,7 @@ public class PlayerMovementImproved : MonoBehaviour
 	{
 		#region Run
 	
-	if(view.IsMine)
+	if(!view.IsMine)
 	{
 		return;
 	}
