@@ -86,9 +86,13 @@ public class PlayerMovementImproved : MonoBehaviour
 	{
 		if(!view.IsMine)
 		{
+			Destroy(GetComponentInChildren<Camera>().gameObject);
+			Destroy (GameObject.FindWithTag("background"));
+			Destroy(anim);
 			Destroy(rb);
 			return;
 		}
+		// GameObject.FindWithTag("cam").GetComponent<HitReaction>();
 		jumpInputReleased = true; 
 		lastJumpTime = 0; 
 		rb = GetComponent<Rigidbody2D>();

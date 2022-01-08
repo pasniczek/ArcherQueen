@@ -11,6 +11,7 @@ TagManager:
   - Button
   - Ladder
   - cam
+  - background
   layers:
   - Default
   - TransparentFX

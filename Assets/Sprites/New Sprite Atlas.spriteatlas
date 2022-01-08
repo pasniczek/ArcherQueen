@@ -43,8 +43,8 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 2800000, guid: 731770ab108c36d438c3bdfc3213315d, type: 3}
     - {fileID: 2800000, guid: e4fcf92c1f4645e47b8c7140ce471d04, type: 3}
+    - {fileID: 2800000, guid: 731770ab108c36d438c3bdfc3213315d, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
