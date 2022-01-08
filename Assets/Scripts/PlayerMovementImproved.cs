@@ -84,28 +84,30 @@ public class PlayerMovementImproved : MonoBehaviour
 
 	private void Start()
 	{
-		/*
-		 - retrieves rigidbody
-		 - if you want the player to have more functionality in future eg: combat, more movement options, etc. 
-		 - I would recommend creating a seperate Player Class and using that to hold all player info such as the rigidbody and make seperate movement, combat, classes for specific functions
-		 - Highly recommed looking into abstacrtion, decoupling and inheritance if you're working on a large project
-		*/
+		if(!view.IsMine)
+		{
+			Destroy(rb);
+			Destroy(anim);
+			return;
+		}
+		jumpInputReleased = true; 
+		lastJumpTime = 0; 
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
-
 		gravityScale = rb.gravityScale;
-
 	}
 
 	void Awake()
 	{
-		jumpInputReleased = true;
-		lastJumpTime = 0;
 		view = GetComponent<PhotonView>();
 	}
 
 	private void Update()
 	{
+		if(!view.IsMine)
+		{
+			return;
+		}
 
 			Animations();
 
@@ -210,13 +212,18 @@ public class PlayerMovementImproved : MonoBehaviour
 			lastOnBackWallTime -= Time.deltaTime;
 			lastJumpTime -= Time.deltaTime;
 			#endregion
+		}
 		
-	}
+	
 
 	private void FixedUpdate()
 	{
 		#region Run
 	
+	if(view.IsMine)
+	{
+		return;
+	}
 		if (canMove)
 		{
 			//calculate the direction we want to move in and our desired velocity
@@ -284,6 +291,7 @@ public class PlayerMovementImproved : MonoBehaviour
 		}
 		#endregion
 		
+	
 	}
 
 	#region Jump

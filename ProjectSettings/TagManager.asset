@@ -10,6 +10,7 @@ TagManager:
   - Bullet
   - Button
   - Ladder
+  - cam
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - sky
   - Platform
   - Material
-  - 
+  - Camera
   - 
   - 
   - 
