@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Cinemachine;
 
 public class PlayerMovementImproved : MonoBehaviour
 {
@@ -80,19 +81,23 @@ public class PlayerMovementImproved : MonoBehaviour
 	const string Player_jump = "jumpBlanket";
 	const string Player_idle = "IdleBlanket";
 
+	[Header("Online")]
 	private PhotonView view;
+	private GameObject cam;
+
 
 	private void Start()
 	{
-		if(!view.IsMine)
-		{
-			Destroy(GetComponentInChildren<Camera>().gameObject);
-			Destroy (GameObject.FindWithTag("background"));
-			Destroy(anim);
-			Destroy(rb);
-			return;
-		}
-		// GameObject.FindWithTag("cam").GetComponent<HitReaction>();
+		// if(!view.IsMine)
+		// {
+		// 	Destroy(GameObject.FindWithTag("cam"));
+		// 	Destroy (GameObject.FindWithTag("background"));
+		// 	Destroy(anim);
+		// 	Destroy(rb);
+		// 	return;
+		// }
+		// cam = GameObject.FindGameObjectWithTag("cam");
+		// cam.GetComponent<CinemachineVirtualCamera>().Follow = this.gameObject.transform;  
 		jumpInputReleased = true; 
 		lastJumpTime = 0; 
 		rb = GetComponent<Rigidbody2D>();
@@ -100,17 +105,17 @@ public class PlayerMovementImproved : MonoBehaviour
 		gravityScale = rb.gravityScale;
 	}
 
-	void Awake()
-	{
-		view = GetComponent<PhotonView>();
-	}
+	// void Awake()
+	// {
+	// 	view = GetComponent<PhotonView>();
+	// }
 
 	private void Update()
 	{
-		if(!view.IsMine)
-		{
-			return;
-		}
+		// if(!view.IsMine)
+		// {
+		// 	return;
+		// }
 
 			Animations();
 
@@ -223,10 +228,10 @@ public class PlayerMovementImproved : MonoBehaviour
 	{
 		#region Run
 	
-	if(!view.IsMine)
-	{
-		return;
-	}
+	// if(!view.IsMine)
+	// {
+	// 	return;
+	// }
 		if (canMove)
 		{
 			//calculate the direction we want to move in and our desired velocity

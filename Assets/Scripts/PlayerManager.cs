@@ -14,6 +14,8 @@ public class PlayerManager : MonoBehaviour
 
 	public Vector2 playerSpawn;
 
+	private bool camFollow = false;
+
 	void Awake()
 	{
 		PV = GetComponent<PhotonView>();
@@ -24,6 +26,9 @@ public class PlayerManager : MonoBehaviour
 		if(PV.IsMine)
 		{
 			CreateControllerAC();
+
+			cam = GameObject.Find("PlayerWCamera/MainCamera");
+			camFollow = true;
 		}
 	}
 
@@ -33,9 +38,11 @@ public class PlayerManager : MonoBehaviour
 		player = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerWCamera"), playerSpawn, Quaternion.identity);
 	}
 
-	// public void Die()
-	// {
-	// 	PhotonNetwork.Destroy(controller);
-	// 	CreateController();
-	// }
+	void Update()
+	{
+		if(camFollow)
+		{
+			Vector2.MoveTowards(cam.transform.position, player.transform.position, .03f);
+		}
+	}
 }

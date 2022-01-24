@@ -66,4 +66,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0289251564c524481210c4fd168711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpawn: {x: -20, y: 9.5}
+  playerSpawn: {x: 0, y: 0}
