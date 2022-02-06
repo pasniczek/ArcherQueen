@@ -12,17 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Grass
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: -8158273205997960823, guid: 731770ab108c36d438c3bdfc3213315d, type: 3}
+  m_DefaultSprite: {fileID: -3963590824717212388, guid: 858b7fe8fa6fb314fb6df8f4b243f5c6, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: -2642393358525368334, guid: 731770ab108c36d438c3bdfc3213315d, type: 3}
-    - {fileID: 182515998739034355, guid: 731770ab108c36d438c3bdfc3213315d, type: 3}
-    - {fileID: 5390129371266227295, guid: 731770ab108c36d438c3bdfc3213315d, type: 3}
-    - {fileID: 1111231892956182058, guid: 731770ab108c36d438c3bdfc3213315d, type: 3}
-    - {fileID: 3042023047814558122, guid: 731770ab108c36d438c3bdfc3213315d, type: 3}
+    - {fileID: 4200754954980325823, guid: 858b7fe8fa6fb314fb6df8f4b243f5c6, type: 3}
+    - {fileID: -1204249641789301349, guid: 858b7fe8fa6fb314fb6df8f4b243f5c6, type: 3}
+    - {fileID: -3963590824717212388, guid: 858b7fe8fa6fb314fb6df8f4b243f5c6, type: 3}
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1

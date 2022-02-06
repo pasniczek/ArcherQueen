@@ -395,27 +395,27 @@ public class PlayerMovementImproved : MonoBehaviour
         Vector2 currentOffset = Vector2.zero;
 
         // idle
-        if (rb.velocity.x == 0 && rb.velocity.y == 0)
+        if (moveInput.x == 0 && !isJumping)
         {
             currentOffset = idleOffset;
         }
         // jump
-        else if (rb.velocity.y > 0 && lastGroundedTime > 0.6f)
+        else if (isJumping)
         {
             currentOffset = jumpOffset;
         }
         // fall
-        else if (rb.velocity.y < 0 && rb.velocity.x == 0 && lastGroundedTime < 0.6f)  
+        else if (isJumping && moveInput.y < 0.6f && moveInput.x == 0)  
         {
             currentOffset = fallOffset;
         }
         //fall verticly
-        else if (rb.velocity.y < 0 && rb.velocity.x != 0 && lastGroundedTime < 0.6f)
+        else if (isJumping && moveInput.y < 0.6f && moveInput.x != 0)
         {
             currentOffset = fallVerticlyOffset;
         }
         // run
-        else if (rb.velocity.x != 0)
+        else if (moveInput.x != 0 && !isJumping)
         {
             currentOffset = runOffset;
         }
@@ -428,4 +428,35 @@ public class PlayerMovementImproved : MonoBehaviour
 
         hairAnchor.partOffset = currentOffset;
     }
+
+	// void SwitchingBackgrounds()
+	// {
+		
+	// }
+
+	void OnTriggerEnter(Collider target)
+ 	{
+    	if(target.tag == "Forest")
+     	{
+        	Debug.Log("ForestEnter");
+     	}
+
+		if(target.tag == "Cave")
+     	{
+        	Debug.Log("CaveEnter");
+     	}
+ 	}
+
+	void OnTriggerExit(Collider target)
+ 	{
+    	if(target.tag == "Forest")
+     	{
+        	Debug.Log("ForestQuit");
+     	}
+
+		if(target.tag == "Cave")
+     	{
+        	Debug.Log("CaveQuit");
+     	}
+ 	}
 }

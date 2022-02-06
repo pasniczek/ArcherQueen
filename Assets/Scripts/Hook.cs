@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Hook : MonoBehaviour
 {
-    public Weapons weapons;
+    public Tools tools;
     private bool hookActivated;
     public GameObject blanket;
     public float range = 20f;
     public Camera cam;
-    private Vector2 lookDirection;
+    private Vector3 worldMousePos;
+    private Vector2 direction;
     public LayerMask objectsToCollide;
     public LayerMask Material;
     public LayerMask Ground;
@@ -52,10 +53,11 @@ public class Hook : MonoBehaviour
     void Update()
     {
 
-        lookDirection = cam.ScreenToWorldPoint(Input.mousePosition) - blanket.transform.position;
-        hit = Physics2D.Raycast(blanket.transform.position, lookDirection , range, objectsToCollide);
+        Vector3 worldMousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = (Vector2)((worldMousePos - blanket.transform.position));
+        hit = Physics2D.Raycast(blanket.transform.position, Vector2.down, range, objectsToCollide);
 
-        if(weapons.activatedHook == true)
+        if(tools.activatedHook == true)
         {
             if(Input.GetKeyDown(KeyCode.Mouse0))
             {
@@ -81,18 +83,8 @@ public class Hook : MonoBehaviour
 
         if(Input.GetKeyUp(KeyCode.Mouse0))
         {
-            m_springJoint2D.enabled = false;
-            Lr.enabled = false;
-            grappleGround = false;
-            grappleMaterial = false;
-
-            if(Dj != null)
-            {
-                Dj.enabled = false;
-                Lr.enabled = false;
-            }
+            UnGrapple();
         }
-        
     }
 
     private void ShotActivated()
@@ -112,6 +104,7 @@ public class Hook : MonoBehaviour
                 {
                     Lr.enabled = true;
                     Dj = hit.transform.gameObject.GetComponent<DistanceJoint2D>();
+                    Dj.enabled = true;
                     CurrentMaterial = hit.transform.gameObject;
                 }
             }
@@ -131,6 +124,18 @@ public class Hook : MonoBehaviour
         Lr.SetPosition(1, grapplePoint);
         yield return new WaitForSeconds(shootingCooldown);
         isShooting = false;
+    }
+
+    private void UnGrapple()
+    {
+        m_springJoint2D.enabled = false;
+        Lr.enabled = false;
+        grappleGround = false;
+        grappleMaterial = false;
+        if(Dj != null)
+        {
+            Dj.enabled = false;
+        }
     }
 }
 

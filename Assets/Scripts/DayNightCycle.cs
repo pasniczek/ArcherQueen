@@ -9,7 +9,8 @@ using UnityEngine.Rendering; // used to access the volume component
 
 public class DayNightCycle : MonoBehaviour
 {
-    public TextMeshProUGUI timeDisplay; // Display Time
+    public TextMeshProUGUI timeDisplay1;
+    public TextMeshProUGUI timeDisplay2; // Display Time
     public TextMeshProUGUI dayDisplay; // Display Day
     public Volume ppvDay; // this is the post processing volume
     public Volume ppvNight;
@@ -19,10 +20,13 @@ public class DayNightCycle : MonoBehaviour
     public int mins;
     public int hours;
     public int days = 1;
- 
+
+    private bool spawnRecources;
+    private bool deleteResources;
     public bool activateLights; // checks if lights are on
     public GameObject[] lights; // all the lights we want on when its dark
     public SpriteRenderer[] stars; // star sprites 
+    public SpawnResources SR; 
 
     private void Awake() 
     {
@@ -111,12 +115,39 @@ public class DayNightCycle : MonoBehaviour
                 }
             }
         }
+
+        if(hours == 12 && mins == 0 && seconds == 0)
+        {
+            spawnRecources = true;
+        }
+
+        if(hours == 11 && mins == 59 && seconds == 59)
+        {
+            deleteResources = true;
+        }
     }
+
+    void Update()
+    {
+        if(spawnRecources)
+        {
+            spawnRecources = false;
+            SR.SpawnRecources();
+        }
+        if(deleteResources)
+        {
+            deleteResources = false;
+            SR.DeleteRecources();
+        }
+    }
+
+    
  
     public void DisplayTime() // Shows time and day in ui
     {
  
-        timeDisplay.text = string.Format("{0:00}:{1:00}", hours, mins); // The formatting ensures that there will always be 0's in empty spaces
+        timeDisplay1.text = string.Format("{0:00}", hours);
+        timeDisplay2.text = string.Format("{0:00}", mins); // The formatting ensures that there will always be 0's in empty spaces
         dayDisplay.text = "Day: " + days; // display day counter
     }
 }

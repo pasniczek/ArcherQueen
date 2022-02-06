@@ -12,6 +12,14 @@ TagManager:
   - Ladder
   - cam
   - background
+  - RockSpawn
+  - WoodSpawn
+  - Forest
+  - Cave
+  - Wood
+  - Rock
+  - Geode
+  - Canvas
   layers:
   - Default
   - TransparentFX
@@ -30,8 +38,8 @@ TagManager:
   - Platform
   - Material
   - Camera
-  - 
-  - 
+  - Grass
+  - Door
   - 
   - 
   - 

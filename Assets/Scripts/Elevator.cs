@@ -13,6 +13,8 @@ public class Elevator : MonoBehaviour
     public Vector2 bottomPlatform;
     private float step;
     private Animator anim;
+    private bool courotineOn;
+    public float leaveCooldown;
 
 
     void Awake()
@@ -43,7 +45,8 @@ public class Elevator : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay2D(Collision2D other) {
+    private void OnCollisionStay2D(Collision2D other) 
+    {
         if (other.gameObject.layer ==  9)
         {
             Vector3 linePos = other.transform.position;
@@ -51,10 +54,19 @@ public class Elevator : MonoBehaviour
             playerOnPlatform = true;
         }
     }
-    private void OnCollisionExit2D(Collision2D other) {
-        if (other.gameObject.layer ==  9)
+    private void OnCollisionExit2D(Collision2D other) 
+    {
+        if(courotineOn)
         {
-            playerOnPlatform = false;
+            StartCoroutine(leavePlatform());
         }
+    }
+
+    IEnumerator leavePlatform()
+    {
+        courotineOn = false;
+        yield return new WaitForSeconds(leaveCooldown);
+        playerOnPlatform = false;
+        courotineOn = true;
     }
 }
