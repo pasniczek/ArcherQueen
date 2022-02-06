@@ -14,6 +14,10 @@ public class anvilScript : MonoBehaviour, IDropHandler
     public Canvas canvas;
     public Vector2 spawnPosition;
     private bool destroyingGeodes = true;
+    private bool readyToHammer;
+    private int buttonPress;
+    public int total;
+    public int randomNumber;
 
     public GameObject GreenImageT1;
     private GameObject GT1;
@@ -51,6 +55,16 @@ public class anvilScript : MonoBehaviour, IDropHandler
     public GameObject PinkImageT3;
     private GameObject PT3;
 
+
+    public int[] table ={ 60, 30, 10};
+
+    public List<GameObject> tools;
+
+    void Start()
+    {
+        OpenGT1();
+    }
+
     void Update()
     {
 
@@ -70,8 +84,17 @@ public class anvilScript : MonoBehaviour, IDropHandler
 
         if(GT1 != null && GT1.transform.position.x > 640 && GT1.transform.position.x < 1500 && GT1.transform.position.y > 300 && GT1.transform.position.y < 720)
         {
-            Debug.Log("landed");
+            readyToHammer = true;
         }
+        // if(GT2 != null && GT2.transform.position.x > 640 && GT2.transform.position.x < 1500 && GT2.transform.position.y > 300 && GT2.transform.position.y < 720)
+        // {
+            
+        // }
+
+        // if(GT3 != null && GT3.transform.position.x > 640 && GT3.transform.position.x < 1500 && GT3.transform.position.y > 300 && GT3.transform.position.y < 720)
+        // {
+            
+        // }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -220,5 +243,41 @@ public class anvilScript : MonoBehaviour, IDropHandler
             GameObject PT3 = Instantiate(PinkImageT3, spawnPosition, Quaternion.identity, canvas.transform) as GameObject;
         }
         spawningGeodes = false;
+    }
+
+    void Hammer()
+    {
+        if(readyToHammer)
+        {
+            buttonPress += 1;
+            if(buttonPress == 3)
+            {
+                Debug.Log("destroyed");
+            }
+        }
+    }
+
+    void OpenGT1()
+    {
+        foreach(var item in table)
+        {
+            total += 1;
+        }
+
+        randomNumber = Random.Range(0, total);
+
+        for(int i = 0; i < table.Length; i++)
+        {
+            if(randomNumber <= table[i])
+            {
+                tools[i].SetActive(true);
+                return;
+            }
+            else
+            {
+                randomNumber -= table[i];
+            }
+        }
+
     }
 }
