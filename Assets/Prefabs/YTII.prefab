@@ -90,6 +90,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGO: {fileID: 0}
+  anvil: {fileID: 0}
+  Bg: {fileID: 0}
+  isG1: 0
+  isG2: 0
+  isG3: 0
+  isR1: 0
+  isR2: 0
+  isR3: 0
+  isB1: 0
+  isB2: 0
+  isB3: 0
+  isY1: 0
+  isY2: 1
+  isY3: 0
+  isP1: 0
+  isP2: 0
+  isP3: 0
 --- !u!225 &2933890204716247712
 CanvasGroup:
   m_ObjectHideFlags: 0

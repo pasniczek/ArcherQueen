@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Experimental.Rendering.Universal;
 
 
 public class buyingGeodes : MonoBehaviour
@@ -9,6 +10,7 @@ public class buyingGeodes : MonoBehaviour
 
     private bool playerInRange;
     public GameObject WebsiteCanvas;
+    public GameObject BackgroundCanvas;
     public GameObject[] otherCanvas;
     public GameObject ConfirmCanvas;
     private bool webClosed = false;
@@ -19,6 +21,11 @@ public class buyingGeodes : MonoBehaviour
     public Tools Tools;
     public GameObject[] allYesButtons;
     public int GeodeNumber;
+    private Animator anim;
+    private SpriteRenderer Sr;
+    public Sprite openPcSprite;
+    public Sprite closedPcSprite;
+
 
     //Greeen Geodes
     [Header("Green")]
@@ -110,6 +117,8 @@ public class buyingGeodes : MonoBehaviour
 
         if(other.tag == "Player")
         {
+            Sr.sprite = openPcSprite;
+            GetComponent<Light2D>().enabled = true;
             playerInRange = true;
         }
     }
@@ -119,6 +128,8 @@ public class buyingGeodes : MonoBehaviour
 
         if(other.tag == "Player")
         {
+            Sr.sprite = closedPcSprite;
+            GetComponent<Light2D>().enabled = false;
             playerInRange = false;
             webClosed = false;
         }
@@ -127,12 +138,15 @@ public class buyingGeodes : MonoBehaviour
     void Awake()
     {
         WebsiteCanvas.SetActive(false);
+        anim = WebsiteCanvas.GetComponent<Animator>();
+        Sr = GetComponent<SpriteRenderer>();
     }
 
     public void XButton()
     {
         webClosed = !webClosed;
     }
+
 
     void Update()
     {
@@ -144,6 +158,8 @@ public class buyingGeodes : MonoBehaviour
         if(webClosed)
         {
             WebsiteCanvas.SetActive(true);
+            BackgroundCanvas.SetActive(true);
+
 
             foreach(GameObject other in otherCanvas)
             {
@@ -193,9 +209,10 @@ public class buyingGeodes : MonoBehaviour
     }
 
     public void CloseWebsite()
-    {
+    { 
         WebsiteCanvas.SetActive(false);
         ConfirmCanvas.SetActive(false);
+        BackgroundCanvas.SetActive(false);
 
         foreach(GameObject other in otherCanvas)
         {
