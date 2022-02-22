@@ -5,68 +5,62 @@ using UnityEngine;
 public class Elevator : MonoBehaviour
 {
 
+    public float lastGT;
+    public GameObject elevator;
     public float speed;
-    private bool playerOnPlatform;
-    private float PosX;
-    public float halfPlatform;
     public Vector2 topPlatform;
     public Vector2 bottomPlatform;
     private float step;
     private Animator anim;
-    private bool courotineOn;
-    public float leaveCooldown;
-
+    public PlayerMovementImproved Pmi;
+    private bool inRange;
+    public bool buttonDownPressed = false;
+    public bool buttonUpPressed = false;
 
     void Awake()
     {
-        anim = GetComponent<Animator>();
+        anim = elevator.GetComponent<Animator>();
     }
 
 
     void Update()
     {
         float step =  Time.deltaTime;
-        if(playerOnPlatform)
+        if(Pmi.lastGroundedTime > lastGT && inRange || buttonDownPressed  || buttonUpPressed)
         {
-            if(PosX > halfPlatform && Input.GetKey("e"))
+            if(Input.GetKey("s") || Input.GetKey(KeyCode.DownArrow) || buttonDownPressed)
             {
                 anim.Play("elevatorIdle");
-                transform.position = Vector2.MoveTowards(transform.position, bottomPlatform, step * speed);
+                elevator.transform.position = Vector2.MoveTowards(transform.position, bottomPlatform, step * speed);
             }
-            else if(PosX < halfPlatform && Input.GetKey("e"))
+            else if(Input.GetKey("w") || Input.GetKey(KeyCode.UpArrow) || buttonUpPressed)
             {
                 anim.Play("elevatorIdle");
-                transform.position = Vector2.MoveTowards(transform.position, topPlatform, step * speed);
+                elevator.transform.position = Vector2.MoveTowards(transform.position, topPlatform, step * speed);
             }
             else
             {
                 anim.Play("elevatorNoAnim");
             }
         }
+        if(!inRange && !buttonDownPressed && !buttonUpPressed)anim.Play("elevatorNoAnim");
     }
 
-    private void OnCollisionStay2D(Collision2D other) 
+
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer ==  9)
+        if(other.tag == "Player")
         {
-            Vector3 linePos = other.transform.position;
-            PosX = other.transform.position.x;
-            playerOnPlatform = true;
-        }
-    }
-    private void OnCollisionExit2D(Collision2D other) 
-    {
-        if(courotineOn)
-        {
-            StartCoroutine(leavePlatform());
+            inRange = true;
         }
     }
 
-    IEnumerator leavePlatform()
+
+    void OnTriggerExit2D(Collider2D other)
     {
-        courotineOn = false;
-        yield return new WaitForSeconds(leaveCooldown);
-        playerOnPlatform = false;
-        courotineOn = true;
+        if(other.tag == "Player")
+        {
+            inRange = false;
+        }
     }
 }

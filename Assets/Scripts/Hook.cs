@@ -5,7 +5,6 @@ using UnityEngine;
 public class Hook : MonoBehaviour
 {
     public Tools tools;
-    private bool hookActivated;
     public GameObject blanket;
     public float range = 20f;
     public Camera cam;
@@ -52,13 +51,10 @@ public class Hook : MonoBehaviour
 
     void Update()
     {
-
         Vector3 worldMousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = (Vector2)((worldMousePos - blanket.transform.position));
         hit = Physics2D.Raycast(blanket.transform.position, Vector2.down, range, objectsToCollide);
-
-        if(tools.activatedHook == true)
-        {
+        
             if(Input.GetKeyDown(KeyCode.Mouse0))
             {
                 ShotActivated();
@@ -78,7 +74,7 @@ public class Hook : MonoBehaviour
                     Dj.enabled = true;
                 }
             }
-        }
+        
         moveTime += Time.deltaTime;
 
         if(Input.GetKeyUp(KeyCode.Mouse0))

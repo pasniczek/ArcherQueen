@@ -25,6 +25,7 @@ public class buyingGeodes : MonoBehaviour
     private SpriteRenderer Sr;
     public Sprite openPcSprite;
     public Sprite closedPcSprite;
+    public bool closeWeb;
 
 
     //Greeen Geodes
@@ -157,6 +158,7 @@ public class buyingGeodes : MonoBehaviour
 
         if(webClosed)
         {
+            closeWeb = false;
             WebsiteCanvas.SetActive(true);
             BackgroundCanvas.SetActive(true);
 
@@ -170,7 +172,7 @@ public class buyingGeodes : MonoBehaviour
         }
         else
         {
-            CloseWebsite();
+            if(closeWeb == false) CloseWebsite();
         }
 
         GeodeNumber = BuyBlueGTIIINum + BuyBlueGTIINum + BuyBlueGTINum + 
@@ -210,6 +212,7 @@ public class buyingGeodes : MonoBehaviour
 
     public void CloseWebsite()
     { 
+        closeWeb = true;
         WebsiteCanvas.SetActive(false);
         ConfirmCanvas.SetActive(false);
         BackgroundCanvas.SetActive(false);
@@ -395,6 +398,15 @@ public class buyingGeodes : MonoBehaviour
             Debug.Log("Bought green geode Tier I");
             BuyGreenGTINum += 1;
             SellingMaterialsScript.Money -= BuyGreenGTIPrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1 )
+            {
+                FindObjectOfType<AudioManager>().Play("buySound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("buySound2");
+            }
         }
         else
         {
@@ -410,6 +422,15 @@ public class buyingGeodes : MonoBehaviour
             Debug.Log("Bought green geode Tier II");
             BuyGreenGTIINum += 1;
             SellingMaterialsScript.Money -= BuyGreenGTIIPrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1 )
+            {
+                FindObjectOfType<AudioManager>().Play("buySound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("buySound2");
+            }
         }
         else
         {
@@ -425,6 +446,15 @@ public class buyingGeodes : MonoBehaviour
             Debug.Log("Bought green geode Tier III");
             BuyGreenGTIIINum += 1;
             SellingMaterialsScript.Money -= BuyGreenGTIIIPrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1 )
+            {
+                FindObjectOfType<AudioManager>().Play("buySound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("buySound2");
+            }
         }
         else
         {
@@ -440,6 +470,15 @@ public class buyingGeodes : MonoBehaviour
             Debug.Log("Bought red geode Tier I");
             BuyRedGTINum += 1;
             SellingMaterialsScript.Money -= BuyRedGTIPrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1 )
+            {
+                FindObjectOfType<AudioManager>().Play("buySound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("buySound2");
+            }
         }
         else
         {
@@ -455,6 +494,15 @@ public class buyingGeodes : MonoBehaviour
             Debug.Log("Bought red geode Tier II");
             BuyRedGTIINum += 1;
             SellingMaterialsScript.Money -= BuyRedGTIIPrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1 )
+            {
+                FindObjectOfType<AudioManager>().Play("buySound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("buySound2");
+            }
         }
         else
         {
@@ -470,6 +518,15 @@ public class buyingGeodes : MonoBehaviour
             Debug.Log("Bought red geode Tier III");
             BuyRedGTIIINum += 1;
             SellingMaterialsScript.Money -= BuyRedGTIIIPrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1 )
+            {
+                FindObjectOfType<AudioManager>().Play("buySound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("buySound2");
+            }
         }
         else
         {
@@ -485,6 +542,15 @@ public class buyingGeodes : MonoBehaviour
             Debug.Log("Bought blue geode Tier I");
             BuyBlueGTINum += 1;
             SellingMaterialsScript.Money -= BuyBlueGTIPrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1 )
+            {
+                FindObjectOfType<AudioManager>().Play("buySound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("buySound2");
+            }
         }
         else
         {
@@ -500,6 +566,15 @@ public class buyingGeodes : MonoBehaviour
             Debug.Log("Bought blue geode Tier II");
             BuyBlueGTIINum += 1;
             SellingMaterialsScript.Money -= BuyBlueGTIIPrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1 )
+            {
+                FindObjectOfType<AudioManager>().Play("buySound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("buySound2");
+            }
         }
         else
         {
@@ -515,6 +590,15 @@ public class buyingGeodes : MonoBehaviour
             Debug.Log("Bought blue geode Tier III");
             BuyBlueGTIIINum += 1;
             SellingMaterialsScript.Money -= BuyBlueGTIIIPrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1 )
+            {
+                FindObjectOfType<AudioManager>().Play("buySound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("buySound2");
+            }
         }
         else
         {
@@ -530,6 +614,15 @@ public class buyingGeodes : MonoBehaviour
             Debug.Log("Bought yellow geode Tier I");
             BuyYellowGTINum += 1;
             SellingMaterialsScript.Money -= BuyYellowGTIPrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1 )
+            {
+                FindObjectOfType<AudioManager>().Play("buySound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("buySound2");
+            }
         }
         else
         {
@@ -545,6 +638,15 @@ public class buyingGeodes : MonoBehaviour
             Debug.Log("Bought yellow geode Tier II");
             BuyYellowGTIINum += 1;
             SellingMaterialsScript.Money -= BuyYellowGTIIPrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1 )
+            {
+                FindObjectOfType<AudioManager>().Play("buySound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("buySound2");
+            }
         }
         else
         {
@@ -560,6 +662,15 @@ public class buyingGeodes : MonoBehaviour
             Debug.Log("Bought yellow geode Tier III");
             BuyYellowGTIIINum += 1;
             SellingMaterialsScript.Money -= BuyYellowGTIIIPrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1 )
+            {
+                FindObjectOfType<AudioManager>().Play("buySound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("buySound2");
+            }
         }
         else
         {
@@ -575,6 +686,15 @@ public class buyingGeodes : MonoBehaviour
             Debug.Log("Bought pink geode Tier I");
             BuyPinkGTINum += 1;
             SellingMaterialsScript.Money -= BuyPinkGTIPrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1 )
+            {
+                FindObjectOfType<AudioManager>().Play("buySound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("buySound2");
+            }
         }
         else
         {
@@ -590,6 +710,15 @@ public class buyingGeodes : MonoBehaviour
             Debug.Log("Bought pink geode Tier II");
             BuyPinkGTIINum += 1;
             SellingMaterialsScript.Money -= BuyPinkGTIIPrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1 )
+            {
+                FindObjectOfType<AudioManager>().Play("buySound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("buySound2");
+            }
         }
         else
         {
@@ -605,6 +734,15 @@ public class buyingGeodes : MonoBehaviour
             Debug.Log("Bought pink geode Tier III");
             BuyPinkGTIIINum += 1;
             SellingMaterialsScript.Money -= BuyPinkGTIIIPrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1 )
+            {
+                FindObjectOfType<AudioManager>().Play("buySound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("buySound2");
+            }
         }
         else
         {

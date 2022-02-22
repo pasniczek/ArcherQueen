@@ -5,9 +5,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-[RequireComponent(typeof(Slider))]
+
 public class anvilScript : MonoBehaviour
 {
+    [HideInInspector]public bool rewardOpen = false;
+    private int goalNum;
     public bool anvilOpen = false;
     public GameObject Anvil;
     private bool playerInRange;
@@ -16,12 +18,6 @@ public class anvilScript : MonoBehaviour
     public Canvas canvas;
     private  Vector2 spawnPosition;
     private bool destroyingGeodes = true;
-    private bool readyToHammer;
-    private int buttonPressG;
-    private int buttonPressR;
-    private int buttonPressB;
-    private int buttonPressY;
-    private int buttonPressP;
     public GameObject button;
     public int randomNumber;
     public int total;
@@ -35,7 +31,9 @@ public class anvilScript : MonoBehaviour
     private float currentValue;
     public float changeSpeed;
     public SliderFill Sf;
+    public GameObject openAfterAnim;
     public GameObject[] otherCanvas;
+    public bool otherOpen;
 
 
 
@@ -98,7 +96,7 @@ public class anvilScript : MonoBehaviour
 
     void Start()
     {
-        // OpenGT1();
+        openAfterAnim.GetComponent<CanvasGroup>().alpha = 0;
     }
 
     void Update()
@@ -111,6 +109,7 @@ public class anvilScript : MonoBehaviour
 
         if(anvilOpen)
         {
+            otherOpen = false;
             foreach(GameObject other in otherCanvas)
             {
                 other.SetActive(false);
@@ -121,12 +120,18 @@ public class anvilScript : MonoBehaviour
         }
         else
         {
-            AnvilClose();
+            if(otherOpen == false) AnvilClose();
+        }
+        if(rewardOpen && Input.GetKeyDown("e"))
+        {
+            XButton();
         }
     }
 
     public void XButton()
     {
+        rewardOpen = false;
+        openAfterAnim.GetComponent<CanvasGroup>().alpha = 0;
         canvasReward.SetActive(false);
     }
     void OnTriggerEnter2D(Collider2D other)
@@ -161,9 +166,14 @@ public class anvilScript : MonoBehaviour
 
     void AnvilClose()
     {
+        otherOpen = true;
         Anvil.SetActive(false);
         spawningGeodes = true;
-
+        foreach(GameObject other in otherCanvas)
+        {
+            other.SetActive(true);
+        }
+        Tools.closeCanvas = false;
         if(destroyingGeodes)
         {
             GameObject[] geodes = GameObject.FindGameObjectsWithTag("Geode");
@@ -295,7 +305,10 @@ public class anvilScript : MonoBehaviour
         spawningGeodes = false;
     }
 
-
+    void waitOS()
+    {
+        openAfterAnim.GetComponent<CanvasGroup>().alpha = 1;
+    }
 
     void OpenGreen()
     {
@@ -312,33 +325,40 @@ public class anvilScript : MonoBehaviour
                     if(randomNumber <= Greentable[j])
                     {
                         canvasReward.SetActive(true);
+                        Invoke("waitOS", 1.2f);
                         imageReward.GetComponent<Image>().sprite = Greenitems[j].GetComponent<Image>().sprite; 
                         randomNumber = Random.Range(10, maxPoints);
                         Sf.curValue = Greenitems[j].GetComponent<numOfLevelPointsItem>().points;
+                        Debug.Log("points:" + Greenitems[j].GetComponent<numOfLevelPointsItem>().points);
+                        goalNum = randomNumber + Greenitems[j].GetComponent<numOfLevelPointsItem>().points;
+                        Debug.Log(goalNum);
                         if(Greenitems[j].GetComponent<numOfLevelPointsItem>().level == 0)
                         {
                             Sf.slider.maxValue = Greenitems[j].GetComponent<numOfLevelPointsItem>().frstNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Greenitems[j].GetComponent<numOfLevelPointsItem>().frstNum);
                         }
                         else if(Greenitems[j].GetComponent<numOfLevelPointsItem>().level == 1)
                         {
                             Sf.slider.maxValue = Greenitems[j].GetComponent<numOfLevelPointsItem>().scndNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Greenitems[j].GetComponent<numOfLevelPointsItem>().scndNum);
                         }
 
                         else if(Greenitems[j].GetComponent<numOfLevelPointsItem>().level == 2)
                         {
                             Sf.slider.maxValue = Greenitems[j].GetComponent<numOfLevelPointsItem>().thrdNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Greenitems[j].GetComponent<numOfLevelPointsItem>().thrdNum);
                         }
 
                         else if(Greenitems[j].GetComponent<numOfLevelPointsItem>().level == 3)
                         {
                             Sf.slider.maxValue = Greenitems[j].GetComponent<numOfLevelPointsItem>().forthNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Greenitems[j].GetComponent<numOfLevelPointsItem>().forthNum);
                         }
- 
-                        numOfPointsReward.SetText("+" + randomNumber.ToString());
-                        Sf.targetValue = randomNumber + Greenitems[j].GetComponent<numOfLevelPointsItem>().points;
-                        Debug.Log(Sf.targetValue);
+                        Sf.targetValue = goalNum;
+                        Debug.Log(randomNumber);
                         Greenitems[j].GetComponent<numOfLevelPointsItem>().points += randomNumber;
                         Sf.sliderOn = true;
+                        rewardOpen = true;
                         break;
                     }
                     else
@@ -365,33 +385,40 @@ public class anvilScript : MonoBehaviour
                     if(randomNumber <= Redtable[j])
                     {
                         canvasReward.SetActive(true);
+                        Invoke("waitOS", 1.2f);
                         imageReward.GetComponent<Image>().sprite = Reditems[j].GetComponent<Image>().sprite; 
                         randomNumber = Random.Range(10, maxPoints);
                         Sf.curValue = Reditems[j].GetComponent<numOfLevelPointsItem>().points;
+                        Debug.Log("points:" + Reditems[j].GetComponent<numOfLevelPointsItem>().points);
+                        goalNum = randomNumber + Reditems[j].GetComponent<numOfLevelPointsItem>().points;
+                        Debug.Log(goalNum);
                         if(Reditems[j].GetComponent<numOfLevelPointsItem>().level == 0)
                         {
                             Sf.slider.maxValue = Reditems[j].GetComponent<numOfLevelPointsItem>().frstNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Reditems[j].GetComponent<numOfLevelPointsItem>().frstNum);
                         }
                         else if(Reditems[j].GetComponent<numOfLevelPointsItem>().level == 1)
                         {
                             Sf.slider.maxValue = Reditems[j].GetComponent<numOfLevelPointsItem>().scndNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Reditems[j].GetComponent<numOfLevelPointsItem>().scndNum);
                         }
 
                         else if(Reditems[j].GetComponent<numOfLevelPointsItem>().level == 2)
                         {
                             Sf.slider.maxValue = Reditems[j].GetComponent<numOfLevelPointsItem>().thrdNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Reditems[j].GetComponent<numOfLevelPointsItem>().thrdNum);
                         }
 
                         else if(Reditems[j].GetComponent<numOfLevelPointsItem>().level == 3)
                         {
                             Sf.slider.maxValue = Reditems[j].GetComponent<numOfLevelPointsItem>().forthNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Reditems[j].GetComponent<numOfLevelPointsItem>().forthNum);
                         }
- 
-                        numOfPointsReward.SetText("+" + randomNumber.ToString());
-                        Sf.targetValue = randomNumber + Reditems[j].GetComponent<numOfLevelPointsItem>().points;
-                        Debug.Log(Sf.targetValue);
+                        Sf.targetValue = goalNum;
+                        Debug.Log(randomNumber);
                         Reditems[j].GetComponent<numOfLevelPointsItem>().points += randomNumber;
                         Sf.sliderOn = true;
+                        rewardOpen = true;
                         break;
                         }
                     else
@@ -413,39 +440,46 @@ public class anvilScript : MonoBehaviour
                 {
                     total += item;
                 }
-                                randomNumber = Random.Range(1, total);
+                randomNumber = Random.Range(1, total);
                 for(int j = 0; j < Bluetable.Length; j++)
                 {
                     if(randomNumber <= Bluetable[j])
                     {
                         canvasReward.SetActive(true);
+                        Invoke("waitOS", 1.2f);
                         imageReward.GetComponent<Image>().sprite = Blueitems[j].GetComponent<Image>().sprite; 
                         randomNumber = Random.Range(10, maxPoints);
                         Sf.curValue = Blueitems[j].GetComponent<numOfLevelPointsItem>().points;
+                        Debug.Log("points:" + Blueitems[j].GetComponent<numOfLevelPointsItem>().points);
+                        goalNum = randomNumber + Blueitems[j].GetComponent<numOfLevelPointsItem>().points;
+                        Debug.Log(goalNum);
                         if(Blueitems[j].GetComponent<numOfLevelPointsItem>().level == 0)
                         {
                             Sf.slider.maxValue = Blueitems[j].GetComponent<numOfLevelPointsItem>().frstNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Blueitems[j].GetComponent<numOfLevelPointsItem>().frstNum);
                         }
                         else if(Blueitems[j].GetComponent<numOfLevelPointsItem>().level == 1)
                         {
                             Sf.slider.maxValue = Blueitems[j].GetComponent<numOfLevelPointsItem>().scndNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Blueitems[j].GetComponent<numOfLevelPointsItem>().scndNum);
                         }
 
                         else if(Blueitems[j].GetComponent<numOfLevelPointsItem>().level == 2)
                         {
                             Sf.slider.maxValue = Blueitems[j].GetComponent<numOfLevelPointsItem>().thrdNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Blueitems[j].GetComponent<numOfLevelPointsItem>().thrdNum);
                         }
 
                         else if(Blueitems[j].GetComponent<numOfLevelPointsItem>().level == 3)
                         {
                             Sf.slider.maxValue = Blueitems[j].GetComponent<numOfLevelPointsItem>().forthNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Blueitems[j].GetComponent<numOfLevelPointsItem>().forthNum);
                         }
- 
-                        numOfPointsReward.SetText("+" + randomNumber.ToString());
-                        Sf.targetValue = randomNumber + Blueitems[j].GetComponent<numOfLevelPointsItem>().points;
-                        Debug.Log(Sf.targetValue);
+                        Sf.targetValue = goalNum;
+                        Debug.Log(randomNumber);
                         Blueitems[j].GetComponent<numOfLevelPointsItem>().points += randomNumber;
                         Sf.sliderOn = true;
+                        rewardOpen = true;
                         break;
                         }
                     else
@@ -474,33 +508,40 @@ public class anvilScript : MonoBehaviour
                     if(randomNumber <= Yellowtable[j])
                     {
                         canvasReward.SetActive(true);
+                        Invoke("waitOS", 1.2f);
                         imageReward.GetComponent<Image>().sprite = Yellowitems[j].GetComponent<Image>().sprite; 
                         randomNumber = Random.Range(10, maxPoints);
                         Sf.curValue = Yellowitems[j].GetComponent<numOfLevelPointsItem>().points;
+                        Debug.Log("points:" + Yellowitems[j].GetComponent<numOfLevelPointsItem>().points);
+                        goalNum = randomNumber + Yellowitems[j].GetComponent<numOfLevelPointsItem>().points;
+                        Debug.Log(goalNum);
                         if(Yellowitems[j].GetComponent<numOfLevelPointsItem>().level == 0)
                         {
                             Sf.slider.maxValue = Yellowitems[j].GetComponent<numOfLevelPointsItem>().frstNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Yellowitems[j].GetComponent<numOfLevelPointsItem>().frstNum);
                         }
                         else if(Yellowitems[j].GetComponent<numOfLevelPointsItem>().level == 1)
                         {
                             Sf.slider.maxValue = Yellowitems[j].GetComponent<numOfLevelPointsItem>().scndNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Yellowitems[j].GetComponent<numOfLevelPointsItem>().scndNum);
                         }
 
                         else if(Yellowitems[j].GetComponent<numOfLevelPointsItem>().level == 2)
                         {
                             Sf.slider.maxValue = Yellowitems[j].GetComponent<numOfLevelPointsItem>().thrdNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Yellowitems[j].GetComponent<numOfLevelPointsItem>().thrdNum);
                         }
 
                         else if(Yellowitems[j].GetComponent<numOfLevelPointsItem>().level == 3)
                         {
                             Sf.slider.maxValue = Yellowitems[j].GetComponent<numOfLevelPointsItem>().forthNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Yellowitems[j].GetComponent<numOfLevelPointsItem>().forthNum);
                         }
- 
-                        numOfPointsReward.SetText("+" + randomNumber.ToString());
-                        Sf.targetValue = randomNumber + Yellowitems[j].GetComponent<numOfLevelPointsItem>().points;
-                        Debug.Log(Sf.targetValue);
+                        Sf.targetValue = goalNum;
+                        Debug.Log(randomNumber);
                         Yellowitems[j].GetComponent<numOfLevelPointsItem>().points += randomNumber;
                         Sf.sliderOn = true;
+                        rewardOpen = true;
                         break;
                         }
                     else
@@ -528,33 +569,40 @@ public class anvilScript : MonoBehaviour
                     if(randomNumber <= Pinktable[j])
                     {
                         canvasReward.SetActive(true);
+                        Invoke("waitOS", 1.2f);
                         imageReward.GetComponent<Image>().sprite = Pinkitems[j].GetComponent<Image>().sprite; 
                         randomNumber = Random.Range(10, maxPoints);
                         Sf.curValue = Pinkitems[j].GetComponent<numOfLevelPointsItem>().points;
+                        Debug.Log("points:" + Pinkitems[j].GetComponent<numOfLevelPointsItem>().points);
+                        goalNum = randomNumber + Pinkitems[j].GetComponent<numOfLevelPointsItem>().points;
+                        Debug.Log(goalNum);
                         if(Pinkitems[j].GetComponent<numOfLevelPointsItem>().level == 0)
                         {
                             Sf.slider.maxValue = Pinkitems[j].GetComponent<numOfLevelPointsItem>().frstNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Pinkitems[j].GetComponent<numOfLevelPointsItem>().frstNum);
                         }
                         else if(Pinkitems[j].GetComponent<numOfLevelPointsItem>().level == 1)
                         {
                             Sf.slider.maxValue = Pinkitems[j].GetComponent<numOfLevelPointsItem>().scndNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Pinkitems[j].GetComponent<numOfLevelPointsItem>().scndNum);
                         }
 
                         else if(Pinkitems[j].GetComponent<numOfLevelPointsItem>().level == 2)
                         {
                             Sf.slider.maxValue = Pinkitems[j].GetComponent<numOfLevelPointsItem>().thrdNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Pinkitems[j].GetComponent<numOfLevelPointsItem>().thrdNum);
                         }
 
                         else if(Pinkitems[j].GetComponent<numOfLevelPointsItem>().level == 3)
                         {
                             Sf.slider.maxValue = Pinkitems[j].GetComponent<numOfLevelPointsItem>().forthNum;
+                            numOfPointsReward.SetText(goalNum.ToString() + "/" + Pinkitems[j].GetComponent<numOfLevelPointsItem>().forthNum);
                         }
- 
-                        numOfPointsReward.SetText("+" + randomNumber.ToString());
-                        Sf.targetValue = randomNumber + Pinkitems[j].GetComponent<numOfLevelPointsItem>().points;
-                        Debug.Log(Sf.targetValue);
+                        Sf.targetValue = goalNum;
+                        Debug.Log(randomNumber);
                         Pinkitems[j].GetComponent<numOfLevelPointsItem>().points += randomNumber;
                         Sf.sliderOn = true;
+                        rewardOpen = true;
                         break;
                         }
                     else

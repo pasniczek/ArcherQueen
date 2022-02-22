@@ -12,8 +12,6 @@ public class SpawnResources : MonoBehaviour
     private GameObject[] Rocks;
     private int numOfWood;
     private int numOfRock;
-    private Quaternion randomRot;
-    private int randomNum;
 
 
     void Start()
@@ -27,47 +25,43 @@ public class SpawnResources : MonoBehaviour
         foreach (GameObject WoodSpawn in WoodSpawns)
         {
             numOfWood = Random.Range(1, 4);
-            randomNum = Random.Range(1, 361);
-            randomRot = new Quaternion(0f, 0f, randomNum, 1f);
             // Debug.Log(numOfWood);
 
             if(numOfWood == 1)
             {
-                Instantiate(WoodPrefab, WoodSpawn.transform.position, randomRot);
+                Instantiate(WoodPrefab, WoodSpawn.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
             }
             if(numOfWood == 2)
             {
-                Instantiate(WoodPrefab, WoodSpawn.transform.position, randomRot);
-                Instantiate(WoodPrefab, WoodSpawn.transform.position, randomRot);
+                Instantiate(WoodPrefab, WoodSpawn.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
+                Instantiate(WoodPrefab, WoodSpawn.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
             }
             if(numOfWood == 3)
             {
-                Instantiate(WoodPrefab, WoodSpawn.transform.position, randomRot);
-                Instantiate(WoodPrefab, WoodSpawn.transform.position, randomRot);
-                Instantiate(WoodPrefab, WoodSpawn.transform.position, randomRot);
+                Instantiate(WoodPrefab, WoodSpawn.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
+                Instantiate(WoodPrefab, WoodSpawn.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
+                Instantiate(WoodPrefab, WoodSpawn.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
             }
         }
         foreach (GameObject RockSpawn in RockSpawns)
         {
             numOfRock = Random.Range(1, 4);
-            randomNum = Random.Range(1, 361);
-            randomRot = new Quaternion(0f, 0f, randomNum, 1f); 
             // Debug.Log(numOfRock);
 
             if(numOfRock == 1)
             {
-                Instantiate(RockPrefab, RockSpawn.transform.position, randomRot);
+                Instantiate(RockPrefab, RockSpawn.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
             }
             if(numOfRock == 2)
             {
-                Instantiate(RockPrefab, RockSpawn.transform.position, randomRot);
-                Instantiate(RockPrefab, RockSpawn.transform.position, randomRot);
+                Instantiate(RockPrefab, RockSpawn.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
+                Instantiate(RockPrefab, RockSpawn.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
             }
             if(numOfRock == 3)
             {
-                Instantiate(RockPrefab, RockSpawn.transform.position, randomRot);
-                Instantiate(RockPrefab, RockSpawn.transform.position, randomRot);
-                Instantiate(RockPrefab, RockSpawn.transform.position, randomRot);
+                Instantiate(RockPrefab, RockSpawn.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
+                Instantiate(RockPrefab, RockSpawn.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
+                Instantiate(RockPrefab, RockSpawn.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
             }
         }
     }

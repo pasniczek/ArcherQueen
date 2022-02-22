@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Spikes
   - theobjectToIgnore
   - Beam
   - Bullet
@@ -22,6 +21,11 @@ TagManager:
   - Canvas
   - Pc
   - Comp
+  - ItemSlot
+  - Item
+  - Tools
+  - Elevator
+  - Info
   layers:
   - Default
   - TransparentFX

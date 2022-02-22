@@ -8,6 +8,7 @@ public class PlayerMovementImproved : MonoBehaviour
 {
 	[Header("References")]
 	private Rigidbody2D rb;
+	public anvilScript As;
 
 	[Header("Movement")]
 	public float moveSpeed;
@@ -16,6 +17,11 @@ public class PlayerMovementImproved : MonoBehaviour
 	public float airAccel; //multiplier when player in air
 	public float airDecel; //multiplier when player in air
 	public float velPower;
+	private bool playGrass = true;
+	public bool inGrass = false;
+	private bool playRock = true;
+	public bool inRock = false;
+	public float footCooldown;
 	[Space(10)]
 	public float frictionAmount;
 	[Space(10)]
@@ -52,7 +58,7 @@ public class PlayerMovementImproved : MonoBehaviour
 	public Vector2 wallCheckSize;
 	[Space(10)]
 	public float jumpCoyoteTime;
-	private float lastGroundedTime;
+	public float lastGroundedTime;
 	[Space(5)]
 	public float jumpBufferTime;
 	private float lastJumpTime;
@@ -86,7 +92,7 @@ public class PlayerMovementImproved : MonoBehaviour
 	private GameObject cam;
 
 
-	private void Start()
+	private void Awake()
 	{
 		// if(!view.IsMine)
 		// {
@@ -112,10 +118,20 @@ public class PlayerMovementImproved : MonoBehaviour
 
 	private void Update()
 	{
-		// if(!view.IsMine)
-		// {
-		// 	return;
-		// }
+		if(As.rewardOpen)
+		{
+			return;
+		}
+		if(Input.GetButton("Horizontal") && playGrass && lastGroundedTime > 0.13 && inGrass)
+		{
+			StartCoroutine(playGrassFoot());
+		}
+
+		else if(Input.GetButton("Horizontal") && playRock && lastGroundedTime > 0.13 && inRock)
+		{
+			StartCoroutine(playRockFoot());
+		}
+
 
 			Animations();
 
@@ -228,10 +244,10 @@ public class PlayerMovementImproved : MonoBehaviour
 	{
 		#region Run
 	
-	// if(!view.IsMine)
-	// {
-	// 	return;
-	// }
+		if(As.rewardOpen)
+		{
+			return;
+		}
 		if (canMove)
 		{
 			//calculate the direction we want to move in and our desired velocity
@@ -395,7 +411,7 @@ public class PlayerMovementImproved : MonoBehaviour
         Vector2 currentOffset = Vector2.zero;
 
         // idle
-        if (moveInput.x == 0 && !isJumping)
+        if (moveInput.x == 0 && lastGroundedTime > 0.13)
         {
             currentOffset = idleOffset;
         }
@@ -405,17 +421,17 @@ public class PlayerMovementImproved : MonoBehaviour
             currentOffset = jumpOffset;
         }
         // fall
-        else if (isJumping && moveInput.y < 0.6f && moveInput.x == 0)  
+        else if (lastGroundedTime < 0.13 && moveInput.y < 0.6f && moveInput.x == 0)  
         {
             currentOffset = fallOffset;
         }
         //fall verticly
-        else if (isJumping && moveInput.y < 0.6f && moveInput.x != 0)
+        else if (lastGroundedTime < 0.13 && moveInput.y < 0.6f && moveInput.x != 0)
         {
             currentOffset = fallVerticlyOffset;
         }
         // run
-        else if (moveInput.x != 0 && !isJumping)
+        else if (moveInput.x != 0 && lastGroundedTime > 0.13)
         {
             currentOffset = runOffset;
         }
@@ -459,4 +475,46 @@ public class PlayerMovementImproved : MonoBehaviour
         	Debug.Log("CaveQuit");
      	}
  	}
+
+	IEnumerator playGrassFoot()
+	{
+		playGrass = false;
+		int RN = Random.Range(1,4);
+		if(RN == 1 )
+        {
+            FindObjectOfType<AudioManager>().Play("grassWalk1");
+			yield return new WaitForSeconds(footCooldown);
+			playGrass = true;
+        }
+        else if(RN == 2)
+        {
+            FindObjectOfType<AudioManager>().Play("grassWalk2");
+			yield return new WaitForSeconds(footCooldown);
+			playGrass = true;
+        }
+		else
+		{
+			FindObjectOfType<AudioManager>().Play("grassWalk3");
+			yield return new WaitForSeconds(footCooldown);
+			playGrass = true;
+		}
+	}
+
+	IEnumerator playRockFoot()
+	{
+		playRock = false;
+		int RN = Random.Range(1,3);
+		if(RN == 1 )
+        {
+            FindObjectOfType<AudioManager>().Play("rockWalk1");
+			yield return new WaitForSeconds(footCooldown);
+			playRock = true;
+        }
+        else if(RN == 2)
+        {
+            FindObjectOfType<AudioManager>().Play("rockWalk2");
+			yield return new WaitForSeconds(footCooldown);
+			playRock = true;
+        }
+	}
 }

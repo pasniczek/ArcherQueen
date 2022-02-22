@@ -89,9 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba223dfe6d82eca428eb82d9b48bceaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasGO: {fileID: 0}
-  anvil: {fileID: 0}
-  Bg: {fileID: 0}
+  itemsSlot: []
   isG1: 0
   isG2: 0
   isG3: 0
@@ -107,6 +105,8 @@ MonoBehaviour:
   isP1: 0
   isP2: 0
   isP3: 0
+  notGeode: 0
+  slotYoureIn: 0
 --- !u!225 &8805266349246900033
 CanvasGroup:
   m_ObjectHideFlags: 0

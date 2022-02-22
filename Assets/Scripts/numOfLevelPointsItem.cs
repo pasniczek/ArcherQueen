@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class numOfLevelPointsItem : MonoBehaviour
 {
+    public int Tier;
+    public int IDNum;
     public int points;
     public int level = 0;
     public int frstNum;
@@ -11,6 +14,9 @@ public class numOfLevelPointsItem : MonoBehaviour
     public int thrdNum;
     public int forthNum;
     public bool upgrade;
+    public bool stuck;
+    private Image image;
+
     
 
     void Reset()
@@ -19,12 +25,21 @@ public class numOfLevelPointsItem : MonoBehaviour
         upgrade = false;
     }
 
+    void Awake()
+    {
+        stuck = true;
+        image = GetComponent<Image>();
+        image.color = new Color32(0, 0, 0, 150);
+    }
+
     void Update()
     {
-        if(level == 0 && points >= frstNum && upgrade)
+        if(level == 0 && points >= frstNum)
         {
+            stuck = false;
             Debug.Log("you unlocked the item");
             points -= frstNum;
+            image.color = new Color32(255, 255, 255, 255);
             Reset();
         }
 

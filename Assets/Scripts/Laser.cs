@@ -25,6 +25,15 @@ public class Laser : MonoBehaviour
             Destroy(other.gameObject);
             Hook.Lr.enabled = false;
             Money += woodPrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1 )
+            {
+                FindObjectOfType<AudioManager>().Play("sellSound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("sellSound2");
+            }
         }
 
         if(other.tag == "Rock")
@@ -34,6 +43,15 @@ public class Laser : MonoBehaviour
             Destroy(other.gameObject);
             Hook.Lr.enabled = false;
             Money += stonePrice;
+            int RN = Random.Range(1,3);
+            if(RN == 1)
+            {
+                FindObjectOfType<AudioManager>().Play("sellSound1");
+            }
+            else 
+            {
+                FindObjectOfType<AudioManager>().Play("sellSound2");
+            }
         }
     }
 

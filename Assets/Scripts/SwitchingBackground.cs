@@ -6,6 +6,7 @@ public class SwitchingBackground : MonoBehaviour
 {
 
     public  GameObject background; 
+    public PlayerMovementImproved Pmi;
     public bool startAwake;
     public LayerMask playerLayer;
 

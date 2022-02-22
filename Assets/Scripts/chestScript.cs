@@ -17,9 +17,12 @@ public class chestScript : MonoBehaviour
     public GameObject[] IVTabUi;
     private bool VTabOpen;
     public GameObject[] VTabUi;
+    public GameObject[] otherCanvas;
+    public Inventory Inventory;
+    public Tools Tools;
+    public bool closeBook;
 
-
-    void Awake()
+    void Start()
     {
         ITabOpen = true;
     }
@@ -34,11 +37,29 @@ public class chestScript : MonoBehaviour
 
         if(chestOpen)
         {
+            closeBook = false;
+            foreach(GameObject other in otherCanvas)
+            {
+                other.SetActive(false);
+            }
+            Inventory.inventoryOpen = false;
+            Tools.closeCanvas = true;
             Chest_.SetActive(true);
         }
         else
         {
+            if(closeBook == false) Close();
+        }
+
+        void Close()
+        {
+            closeBook = true;
             Chest_.SetActive(false);
+            foreach(GameObject other in otherCanvas)
+            {
+                other.SetActive(true);
+            }
+            Tools.closeCanvas = false;
         }
 
         if(ITabOpen)
