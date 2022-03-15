@@ -17,6 +17,30 @@ TextureImporter:
   - first:
       213: 5132489656428201866
     second: Examples Spritesheet 1_4
+  - first:
+      213: 3550781998658893963
+    second: Examples Spritesheet 1_5
+  - first:
+      213: -4517307036297209930
+    second: Examples Spritesheet 1_6
+  - first:
+      213: 1957226558174851473
+    second: Examples Spritesheet 1_7
+  - first:
+      213: -8327845404200224780
+    second: Examples Spritesheet 1_8
+  - first:
+      213: -1072071914899279942
+    second: Examples Spritesheet 1_9
+  - first:
+      213: -6779383922306256020
+    second: Examples Spritesheet 1_10
+  - first:
+      213: -3214007619168957978
+    second: Examples Spritesheet 1_11
+  - first:
+      213: 6287303294682622940
+    second: Examples Spritesheet 1_12
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -114,7 +138,7 @@ TextureImporter:
         width: 384
         height: 287
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -130,12 +154,12 @@ TextureImporter:
       name: Examples Spritesheet 1_1
       rect:
         serializedVersion: 2
-        x: 145
-        y: 2124
-        width: 32
-        height: 31
+        x: 293
+        y: 2121
+        width: 17
+        height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -148,13 +172,181 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
+      name: Examples Spritesheet 1_5
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 800
+        width: 127
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b883ae83a69e64130800000000000000
+      internalID: 3550781998658893963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Examples Spritesheet 1_6
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 800
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b7d1282f2d4f41c0800000000000000
+      internalID: -4517307036297209930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Examples Spritesheet 1_7
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 800
+        width: 128
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 191f8f05f27792b10800000000000000
+      internalID: 1957226558174851473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Examples Spritesheet 1_8
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 512
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f7b64a4abc8d6c80800000000000000
+      internalID: -8327845404200224780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Examples Spritesheet 1_9
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 704
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abf61c2064c3f11f0800000000000000
+      internalID: -1072071914899279942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Examples Spritesheet 1_10
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 712
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c63f0facd3acae1a0800000000000000
+      internalID: -6779383922306256020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Examples Spritesheet 1_11
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 2122
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e90902591d8563d0800000000000000
+      internalID: -3214007619168957978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Examples Spritesheet 1_12
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 2120
+        width: 49
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdb63b2f80df04750800000000000000
+      internalID: 6287303294682622940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
       name: Examples Spritesheet 1_2
       rect:
         serializedVersion: 2
-        x: 92
-        y: 2124
-        width: 32
-        height: 32
+        x: 157
+        y: 2125
+        width: 26
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,10 +364,10 @@ TextureImporter:
       name: Examples Spritesheet 1_3
       rect:
         serializedVersion: 2
-        x: 43
-        y: 2124
-        width: 32
-        height: 32
+        x: 160
+        y: 1430
+        width: 384
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,27 +377,6 @@ TextureImporter:
       bones: []
       spriteID: 93d39894fe5c98770800000000000000
       internalID: 8613633393844370745
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Examples Spritesheet 1_4
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 2124
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a8705c046244a3740800000000000000
-      internalID: 5132489656428201866
       vertices: []
       indices: 
       edges: []

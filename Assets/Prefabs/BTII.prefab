@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2175042445970280598, guid: 00ef15e12df27a8438dd175f80a71877, type: 3}
+  m_Sprite: {fileID: -8105430117258554909, guid: 9d0696fb0565b0f46806dbee5a4e1cfb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemsSlot: []
+  location: 0
   isG1: 0
   isG2: 0
   isG3: 0
@@ -105,8 +106,22 @@ MonoBehaviour:
   isP1: 0
   isP2: 0
   isP3: 0
+  tools: 0
+  weapon: 0
+  armor: 0
+  acc: 0
+  keys: 0
+  T: {fileID: 0}
+  W: {fileID: 0}
+  A: {fileID: 0}
+  D: {fileID: 0}
+  K: {fileID: 0}
+  slotOWeapon: {fileID: 0}
+  slotOArmor: {fileID: 0}
+  slotOKeys: {fileID: 0}
   notGeode: 0
   slotYoureIn: 0
+  Info: {fileID: 0}
 --- !u!225 &5599493148614316496
 CanvasGroup:
   m_ObjectHideFlags: 0

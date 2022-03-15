@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Keys : MonoBehaviour
 {
-    public GameObject KeysImage;
+    public GameObject KeysImageI;
     public int selectedKeys;
     public bool slotTaken;
 
@@ -12,11 +12,11 @@ public class Keys : MonoBehaviour
     {
         if(selectedKeys == 0)
         {
-            KeysImage.SetActive(false);
+            KeysImageI.SetActive(false);
         }
         else
         {
-            KeysImage.SetActive(true);
+            KeysImageI.SetActive(true);
         }
         
     }

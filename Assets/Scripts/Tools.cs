@@ -30,7 +30,7 @@ public class Tools : MonoBehaviour
     public bool closeCanvas;
     private GameObject[] items;
 
-    void Awake()
+    void Start()
     {
         items = GameObject.FindGameObjectsWithTag("Item");
     }
@@ -72,10 +72,6 @@ public class Tools : MonoBehaviour
         {
             numOfWeapons = 2;
         }
-    
-        InventoryImage1GO.GetComponent<Image>().sprite = ScndSprite;
-        InventoryImage2GO.GetComponent<Image>().sprite = ThrdSprite;
-        InventoryImage3GO.GetComponent<Image>().sprite = FrstSprite;
 
 
         if(numOfWeapons < 0 || closeCanvas)

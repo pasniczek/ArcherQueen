@@ -26,6 +26,14 @@ TagManager:
   - Tools
   - Elevator
   - Info
+  - Wood2
+  - Wood3
+  - Rock2
+  - Rock3
+  - Gem
+  - Gem2
+  - Gem3
+  - GemSpawn
   layers:
   - Default
   - TransparentFX

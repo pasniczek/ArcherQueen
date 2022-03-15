@@ -7,6 +7,8 @@ public class soundDetection : MonoBehaviour
     public PlayerMovementImproved Pmi;
     public bool Grass;
     public bool Rock;
+    public bool Wood;
+    public bool Sand;
     public LayerMask playerLayer;
 
     void OnTriggerEnter2D(Collider2D target)

@@ -22,8 +22,9 @@ public class chestScript : MonoBehaviour
     public Tools Tools;
     public bool closeBook;
 
-    void Start()
+    void Awake()
     {
+        Chest_.SetActive(true);
         ITabOpen = true;
     }
 

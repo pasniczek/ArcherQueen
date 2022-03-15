@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Armor : MonoBehaviour
 {
-    public GameObject ArmorImage;
+    public GameObject ArmorImageI;
     public int selectedArmor;
     public bool slotTaken;
 
@@ -12,11 +12,11 @@ public class Armor : MonoBehaviour
     {
         if(selectedArmor == 0)
         {
-            ArmorImage.SetActive(false);
+            ArmorImageI.SetActive(false);
         }
         else
         {
-            ArmorImage.SetActive(true);
+            ArmorImageI.SetActive(true);
         }
         
     }

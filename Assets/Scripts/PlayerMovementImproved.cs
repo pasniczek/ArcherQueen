@@ -87,6 +87,9 @@ public class PlayerMovementImproved : MonoBehaviour
 	const string Player_jump = "jumpBlanket";
 	const string Player_idle = "IdleBlanket";
 
+	public GameObject jumpSmoke;
+	public Vector3 OffsetSmoke;
+
 	[Header("Online")]
 	private PhotonView view;
 	private GameObject cam;
@@ -140,6 +143,11 @@ public class PlayerMovementImproved : MonoBehaviour
 			#region Inputs
 			moveInput.x = Input.GetAxisRaw("Horizontal");
 			moveInput.y = Input.GetAxisRaw("Vertical");
+
+			if (Input.GetButtonDown("Jump") && lastGroundedTime > 0.13)
+			{
+				StartCoroutine(JumpSmokeCor());
+			}
 
 			if (Input.GetButton("Jump"))
 			{
@@ -365,11 +373,18 @@ public class PlayerMovementImproved : MonoBehaviour
 	}
 	#endregion
 
-	private IEnumerator StopMovement(float duration)
+	IEnumerator StopMovement(float duration)
 	{
 		canMove = false;
 		yield return new WaitForSeconds(duration);
 		canMove = true;
+	}
+
+	IEnumerator JumpSmokeCor()
+	{
+		GameObject smoke = Instantiate(jumpSmoke, groundCheckPoint.position + OffsetSmoke, Quaternion.identity);
+		yield return new WaitForSeconds(0.31f);
+		Destroy(smoke);
 	}
 
 	private void Turn()

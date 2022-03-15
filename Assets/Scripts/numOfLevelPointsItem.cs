@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class numOfLevelPointsItem : MonoBehaviour
 {
-    public int Tier;
+    public string Name;
+    public string Description;
     public int IDNum;
     public int points;
     public int level = 0;
@@ -16,14 +17,10 @@ public class numOfLevelPointsItem : MonoBehaviour
     public bool upgrade;
     public bool stuck;
     private Image image;
+    public bool overworked = false;
 
     
 
-    void Reset()
-    {
-        level += 1;
-        upgrade = false;
-    }
 
     void Awake()
     {
@@ -37,31 +34,43 @@ public class numOfLevelPointsItem : MonoBehaviour
         if(level == 0 && points >= frstNum)
         {
             stuck = false;
-            Debug.Log("you unlocked the item");
+            Debug.Log("you unlocked the" + Name);
             points -= frstNum;
             image.color = new Color32(255, 255, 255, 255);
-            Reset();
+            level += 1;
         }
 
-        else if(level == 1 && points >= scndNum && upgrade)
+        if(level == 1 && points >= scndNum)
         {
-            Debug.Log("youre level 1 now");
-            points -= scndNum;
-            Reset();
+            if(upgrade)
+            {
+                upgrade = false;
+                Debug.Log("level 1" + Name);
+                points -= scndNum;
+                level += 1;
+            }
         }
 
-        else if(level == 2 && points >= thrdNum && upgrade)
+        if(level == 2 && points >= thrdNum)
         {
-            Debug.Log("youre level 2 now");
-            points -= thrdNum;
-            Reset();
+            if(upgrade)
+            {
+                upgrade = false;
+                Debug.Log("level 2" + Name);
+                points -= thrdNum;
+                level += 1;
+            }
 
         }
 
-        else if(level == 3 && points >= forthNum && upgrade)
+        if(level == 3 && points >= forthNum)
         {
-            Debug.Log("youre level 3 now");
-            Reset();
+            if(upgrade)
+            {
+                upgrade = false;
+                Debug.Log("level 3" + Name);
+                level += 1;
+            }
         }
     }
 }

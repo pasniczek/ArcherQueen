@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public GameObject WeaponImage;
+    public GameObject WeaponImageI;
     public int selectedWeapon;
     public bool slotTaken;
 
@@ -12,11 +12,11 @@ public class Weapon : MonoBehaviour
     {
         if(selectedWeapon == 0)
         {
-            WeaponImage.SetActive(false);
+            WeaponImageI.SetActive(false);
         }
         else
         {
-            WeaponImage.SetActive(true);
+            WeaponImageI.SetActive(true);
         }
         
     }

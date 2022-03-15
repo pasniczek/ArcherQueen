@@ -7,8 +7,17 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class buyingGeodes : MonoBehaviour
 {
-
-    private bool playerInRange;
+    private bool tic;
+    private bool pageOneOpen;
+    public float flipPageTime;
+    public GameObject pageOne;
+    public GameObject pageTwo;
+    public Animator bookAnim;
+    public TextMeshProUGUI NameG;
+    public TextMeshProUGUI TierG;
+    public TextMeshProUGUI PriceG;
+    public TextMeshProUGUI ChancesG;
+    private bool playerInRange; 
     public GameObject WebsiteCanvas;
     public GameObject BackgroundCanvas;
     public GameObject[] otherCanvas;
@@ -148,9 +157,51 @@ public class buyingGeodes : MonoBehaviour
         webClosed = !webClosed;
     }
 
+    public void flipPageRight()
+    {
+        StartCoroutine(flipPageR());
+    }
+
+    IEnumerator flipPageR()
+    {
+        pageOne.SetActive(false);
+        pageTwo.SetActive(false);
+        bookAnim.SetTrigger("PageRight");
+        yield return new WaitForSeconds(flipPageTime);
+        tic = true;
+        pageOneOpen = !pageOneOpen;
+    }
+
+    public void flipPageLeft()
+    {
+        StartCoroutine(flipPageL());
+    }
+
+    IEnumerator flipPageL()
+    {
+        pageOne.SetActive(false);
+        pageTwo.SetActive(false);
+        bookAnim.SetTrigger("PageLeft");
+        yield return new WaitForSeconds(flipPageTime);
+        tic = true;
+        pageOneOpen = !pageOneOpen;
+    }
 
     void Update()
     {
+        if(pageOneOpen && tic)
+        {
+            tic = false;
+            pageOne.SetActive(true);
+            pageTwo.SetActive(false);
+        }
+        else if(!pageOneOpen && tic)
+        {
+            tic = false;
+            pageOne.SetActive(false);    
+            pageTwo.SetActive(true);     
+        }
+
         if(playerInRange && Input.GetKeyDown("e"))
         {
             webClosed = !webClosed;
@@ -226,6 +277,10 @@ public class buyingGeodes : MonoBehaviour
 
     public void BuyGreenGTI()
     {
+        NameG.text = "Green Geode";
+        TierG.text = "Tier I";
+        PriceG.SetText(BuyGreenGTIPrice.ToString());
+        ChancesG.text = "Chances of Getting a Green Item: 52%";
         ConfirmCanvas.SetActive(true);
         foreach(GameObject yesButton in allYesButtons)
         {
@@ -237,6 +292,10 @@ public class buyingGeodes : MonoBehaviour
 
     public void BuyGreenGII()
     {
+        NameG.text = "Green Geode";
+        TierG.text = "Tier II";
+        PriceG.SetText(BuyGreenGTIIPrice.ToString());
+        ChancesG.text = "Chances of Getting a Green Item: 60%";
         ConfirmCanvas.SetActive(true);
         foreach(GameObject yesButton in allYesButtons)
         {
@@ -248,6 +307,10 @@ public class buyingGeodes : MonoBehaviour
 
     public void BuyGreenGTIII()
     {
+        NameG.text = "Green Geode";
+        TierG.text = "Tier III";
+        PriceG.SetText(BuyGreenGTIIIPrice.ToString());
+        ChancesG.text = "Chances of Getting a Green Item: 70%";
         ConfirmCanvas.SetActive(true);
         foreach(GameObject yesButton in allYesButtons)
         {
@@ -259,6 +322,10 @@ public class buyingGeodes : MonoBehaviour
     
     public void BuyRedGTI()
     {
+        NameG.text = "Red Geode";
+        TierG.text = "Tier I";
+        PriceG.SetText(BuyRedGTIPrice.ToString());
+        ChancesG.text = "Chances of Getting a Red Item: 52%";
         ConfirmCanvas.SetActive(true);
         foreach(GameObject yesButton in allYesButtons)
         {
@@ -270,6 +337,10 @@ public class buyingGeodes : MonoBehaviour
 
     public void BuyRedGTII()
     {
+        NameG.text = "Red Geode";
+        TierG.text = "Tier II";
+        PriceG.SetText(BuyRedGTIIPrice.ToString());
+        ChancesG.text = "Chances of Getting a Red Item: 60%";
         ConfirmCanvas.SetActive(true);
         foreach(GameObject yesButton in allYesButtons)
         {
@@ -281,6 +352,10 @@ public class buyingGeodes : MonoBehaviour
 
     public void BuyRedGTIII()
     {
+        NameG.text = "Red Geode";
+        TierG.text = "Tier III";
+        PriceG.SetText(BuyRedGTIIIPrice.ToString());
+        ChancesG.text = "Chances of Getting a Red Item: 70%";
         ConfirmCanvas.SetActive(true);
         foreach(GameObject yesButton in allYesButtons)
         {
@@ -292,6 +367,10 @@ public class buyingGeodes : MonoBehaviour
 
     public void BuyBlueGTI()
     {
+        NameG.text = "Blue Geode";
+        TierG.text = "Tier I";
+        PriceG.SetText(BuyBlueGTIPrice.ToString());
+        ChancesG.text = "Chances of Getting a Blue Item: 52%";
         ConfirmCanvas.SetActive(true);
         foreach(GameObject yesButton in allYesButtons)
         {
@@ -303,6 +382,10 @@ public class buyingGeodes : MonoBehaviour
 
     public void BuyBlueGTII()
     {
+        NameG.text = "Blue Geode";
+        TierG.text = "Tier II";
+        PriceG.SetText(BuyBlueGTIIPrice.ToString());
+        ChancesG.text = "Chances of Getting a Blue Item: 60%";
         ConfirmCanvas.SetActive(true);
         foreach(GameObject yesButton in allYesButtons)
         {
@@ -315,6 +398,10 @@ public class buyingGeodes : MonoBehaviour
     
     public void BuyBlueGTIII()
     {
+        NameG.text = "Blue Geode";
+        TierG.text = "Tier III";
+        PriceG.SetText(BuyBlueGTIIIPrice.ToString());
+        ChancesG.text = "Chances of Getting a Blue Item: 70%";
         ConfirmCanvas.SetActive(true);
         foreach(GameObject yesButton in allYesButtons)
         {
@@ -326,6 +413,10 @@ public class buyingGeodes : MonoBehaviour
 
     public void BuyYellowGTI()
     {
+        NameG.text = "Yellow Geode";
+        TierG.text = "Tier I";
+        PriceG.SetText(BuyYellowGTIPrice.ToString());
+        ChancesG.text = "Chances of Getting a Yellow Item: 52%";
         ConfirmCanvas.SetActive(true);
         foreach(GameObject yesButton in allYesButtons)
         {
@@ -337,6 +428,10 @@ public class buyingGeodes : MonoBehaviour
 
     public void BuyYellowGTII()
     {
+        NameG.text = "Yellow Geode";
+        TierG.text = "Tier II";
+        PriceG.SetText(BuyYellowGTIIPrice.ToString());
+        ChancesG.text = "Chances of Getting a Yellow Item: 60%";
         ConfirmCanvas.SetActive(true);
         foreach(GameObject yesButton in allYesButtons)
         {
@@ -348,6 +443,10 @@ public class buyingGeodes : MonoBehaviour
 
     public void BuyYellowGTIII()
     {
+        NameG.text = "Yellow Geode";
+        TierG.text = "Tier III";
+        PriceG.SetText(BuyYellowGTIIIPrice.ToString());
+        ChancesG.text = "Chances of Getting a Yellow Item: 70%";
         ConfirmCanvas.SetActive(true);
         foreach(GameObject yesButton in allYesButtons)
         {
@@ -359,6 +458,10 @@ public class buyingGeodes : MonoBehaviour
 
     public void BuyPinkGTI()
     {
+        NameG.text = "Pink Geode";
+        TierG.text = "Tier I";
+        PriceG.SetText(BuyPinkGTIPrice.ToString());
+        ChancesG.text = "Chances of Getting a Pink Item: 52%";
         ConfirmCanvas.SetActive(true);
         foreach(GameObject yesButton in allYesButtons)
         {
@@ -370,6 +473,10 @@ public class buyingGeodes : MonoBehaviour
 
     public void BuyPinkGTII()
     {
+        NameG.text = "Pink Geode";
+        TierG.text = "Tier II";
+        PriceG.SetText(BuyPinkGTIIPrice.ToString());
+        ChancesG.text = "Chances of Getting a Pink Item: 60%";
         ConfirmCanvas.SetActive(true);
         foreach(GameObject yesButton in allYesButtons)
         {
@@ -381,6 +488,10 @@ public class buyingGeodes : MonoBehaviour
 
     public void BuyPinkGTIII()
     {
+        NameG.text = "Pink Geode";
+        TierG.text = "Tier III";
+        PriceG.SetText(BuyPinkGTIIIPrice.ToString());
+        ChancesG.text = "Chances of Getting a Pink Item: 70%";
         ConfirmCanvas.SetActive(true);
         foreach(GameObject yesButton in allYesButtons)
         {

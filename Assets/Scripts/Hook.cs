@@ -87,10 +87,10 @@ public class Hook : MonoBehaviour
     {       
         if(hit == true)
         {
-            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground") && isShooting == false) 
-            {
-               StartCoroutine(GrapplingShot());
-            }
+            // if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground") && isShooting == false) 
+            // {
+            //    StartCoroutine(GrapplingShot());
+            // }
 
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Material")) 
             { 
